@@ -12,14 +12,14 @@ namespace push
     {
         [Topic("pubsub", "in")]
         [HttpPost("in")]
-        public Task InboxAsync(ProductInfo productInfo, [FromServices]DaprClient daprClient)
+        public Task InboxAsync(ProductInfo productInfo, [FromServices] DaprClient daprClient)
          => daprClient.InvokeBindingAsync(
              "azurestorage",
              "create",
              Template(productInfo),
              metadata: new Dictionary<string, string>
                 {
-                    { "blobName", "index.html" },
+                    { "blobName", $"product-{productInfo.Id}.html" },
                     { "ContentType", "text/html" }
             });
 
@@ -29,8 +29,8 @@ namespace push
 
     public class ProductInfo
     {
+        public int Id { get; set; }
         public string Title { get; set; }
-
         public int Price { get; set; }
     }
 }
