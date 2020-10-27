@@ -10,25 +10,18 @@ namespace push
     [ApiController]
     public class DaprController : ControllerBase
     {
-        private readonly DaprClient daprClient;
-
-        public DaprController(DaprClient daprClient)
-        {
-            this.daprClient = daprClient;
-        }
-
         [Topic("pubsub", "in")]
         [HttpPost("in")]
-        public async Task<IActionResult> InboxAsync(ProductInfo productInfo)
-        {
-            var d = new Dictionary<string, string>
-            {
-                { "blobName", "index.html" },
-                { "ContentType", "text/html" }
-            };
-            await daprClient.InvokeBindingAsync("azurestorage", "create", Template(productInfo), metadata: d);
-            return Ok();
-        }
+        public Task InboxAsync(ProductInfo productInfo, [FromServices]DaprClient daprClient)
+         => daprClient.InvokeBindingAsync(
+             "azurestorage",
+             "create",
+             Template(productInfo),
+             metadata: new Dictionary<string, string>
+                {
+                    { "blobName", "index.html" },
+                    { "ContentType", "text/html" }
+            });
 
         public static string Template(ProductInfo info)
             => $"<html><body><h1>{info.Title}</h1><div>{info.Price}</div></body></html>";
