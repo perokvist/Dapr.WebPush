@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "push", "src\push.csproj", "{E0410DD8-BD6F-4C5A-A5B7-39F7502195B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "push", "src\csharppush\push.csproj", "{E0410DD8-BD6F-4C5A-A5B7-39F7502195B1}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "nodepush", "src\nodepush\nodepush.njsproj", "{0AF7B423-C728-4C64-93FA-B628428098FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E0410DD8-BD6F-4C5A-A5B7-39F7502195B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0410DD8-BD6F-4C5A-A5B7-39F7502195B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0410DD8-BD6F-4C5A-A5B7-39F7502195B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AF7B423-C728-4C64-93FA-B628428098FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AF7B423-C728-4C64-93FA-B628428098FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AF7B423-C728-4C64-93FA-B628428098FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AF7B423-C728-4C64-93FA-B628428098FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
