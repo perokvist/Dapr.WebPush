@@ -1,36 +1,34 @@
+import { Any } from 'google-protobuf/google/protobuf/any_pb';
+
 import dapr from 'dapr-client';
 import grpc from "grpc";
 import express from "express";
 import bodyParser from "body-parser";
 
 const daprGrpcPort = process.env.DAPR_GRPC_PORT || 50001;
-const stateStoreName = `statestore`;
 
 const port = 3000;
 const app = express();
-
-app.use(bodyParser.json());
-
-
 const client = new dapr.dapr_grpc.DaprClient(
     `localhost:${daprGrpcPort}`, grpc.credentials.createInsecure());
 const messages = dapr.dapr_pb;
 
+app.use(bodyParser.json({ type: 'application/*+json' }));
+
 app.post('/in', (req, res) => {
     const data = req.body.data;
-    console.dir(req.body.data);
-    console.dir(req.body);
-    console.log("Got a new product: " + data);
+    console.log("Got a new product");
+    console.dir(data);
     const binding = new messages.InvokeBindingRequest();
     binding.setName('azurestorage');
-    binding.setData(data);
-    binding.setOperation('create')
+    binding.setData(Buffer.from(JSON.stringify(data)));
+    binding.setOperation('create');
     const metaMap = binding.getMetadataMap();
-    metaMap.set("blobName", "product-"+ data.Id );
+    metaMap.set("blobName", "product-test.html");//-"+ data.Id );
     metaMap.set("ContentType", "text/html");
-
     client.invokeBinding(binding, (err, response) => {
         if (err) {
+            console.dir(binding);
             console.log(`Error binding: ${err}`);
         } else {
             console.log('File uploaded!');
