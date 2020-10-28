@@ -20,11 +20,12 @@ app.post('/in', (req, res) => {
     console.log("Got a new product");
     console.dir(data);
     const binding = new messages.InvokeBindingRequest();
-    binding.setName('azurestorage');
+    binding.setName("azurestorage");
     binding.setData(Buffer.from(JSON.stringify(data)));
-    binding.setOperation('create');
+    binding.setOperation("create");
     const metaMap = binding.getMetadataMap();
-    metaMap.set("blobName", "product-test.html");//-"+ data.Id );
+    //metaMap.set("key", "val");
+    metaMap.set("blobName", "producttest-"+ data.Id + ".html" );
     metaMap.set("ContentType", "text/html");
     client.invokeBinding(binding, (err, response) => {
         if (err) {
