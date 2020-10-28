@@ -11,12 +11,32 @@ const app = express();
 
 app.use(bodyParser.json());
 
-var client = new dapr.dapr_grpc.DaprClient(
+
+const client = new dapr.dapr_grpc.DaprClient(
     `localhost:${daprGrpcPort}`, grpc.credentials.createInsecure());
+const messages = dapr.dapr_pb;
 
 app.post('/in', (req, res) => {
     const data = req.body.data;
+    console.dir(req.body.data);
+    console.dir(req.body);
     console.log("Got a new product: " + data);
+    const binding = new messages.InvokeBindingRequest();
+    binding.setName('azurestorage');
+    binding.setData(data);
+    binding.setOperation('create')
+    const metaMap = binding.getMetadataMap();
+    metaMap.set("blobName", "product-"+ data.Id );
+    metaMap.set("ContentType", "text/html");
+
+    client.invokeBinding(binding, (err, response) => {
+        if (err) {
+            console.log(`Error binding: ${err}`);
+        } else {
+            console.log('File uploaded!');
+        }
+    });
+
     res.status(200).send();
 });
 

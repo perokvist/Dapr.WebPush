@@ -12,10 +12,28 @@ const stateStoreName = `statestore`;
 const port = 3000;
 const app = express_1.default();
 app.use(body_parser_1.default.json());
-var client = new dapr_client_1.default.dapr_grpc.DaprClient(`localhost:${daprGrpcPort}`, grpc_1.default.credentials.createInsecure());
+const client = new dapr_client_1.default.dapr_grpc.DaprClient(`localhost:${daprGrpcPort}`, grpc_1.default.credentials.createInsecure());
+const messages = dapr_client_1.default.dapr_pb;
 app.post('/in', (req, res) => {
     const data = req.body.data;
+    console.dir(req.body.data);
+    console.dir(req.body);
     console.log("Got a new product: " + data);
+    const binding = new messages.InvokeBindingRequest();
+    binding.setName('azurestorage');
+    binding.setData(data);
+    binding.setOperation('create');
+    const metaMap = binding.getMetadataMap();
+    metaMap.set("blobName", "product-" + data.Id);
+    metaMap.set("ContentType", "text/html");
+    client.invokeBinding(binding, (err, response) => {
+        if (err) {
+            console.log(`Error binding: ${err}`);
+        }
+        else {
+            console.log('File uploaded!');
+        }
+    });
     res.status(200).send();
 });
 app.get('/dapr/subscribe', (req, res) => {
