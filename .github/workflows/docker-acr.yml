@@ -10,7 +10,7 @@ jobs:
           uses: actions/checkout@master
         
         - name: Install Docker Compose CLI
-        - run: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+          run: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
         
         - name: 'Login via Azure CLI'
           uses: azure/login@v1
@@ -25,8 +25,5 @@ jobs:
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
             docker build -f "./src/csharppush/Dockerfile" -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }} .
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
-            
-        - name: Checkout
-        - run: docker context create aci acicontext
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}          
 
