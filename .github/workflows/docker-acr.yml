@@ -21,5 +21,5 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
         - run: |
-            docker build /src/csharppush/ -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
+            docker build src/csharppush -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
