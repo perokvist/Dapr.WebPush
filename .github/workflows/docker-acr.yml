@@ -8,7 +8,10 @@ jobs:
         # checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@master
-          
+        
+        - name: Install Docker Compose CLI
+        - run: curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+        
         - name: 'Login via Azure CLI'
           uses: azure/login@v1
           with:
@@ -24,11 +27,6 @@ jobs:
             docker build -f "./src/csharppush/Dockerfile" -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }} .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
             
-        - name: Azure CLI Action
-          uses: Azure/cli@v1.0.0
-          with:
-            # Specify the script here
-            inlineScript: |
-                docker context create aci acicontext 
-                docker context use acicontext
-                docker context ls
+        - name: Checkout
+        - run: docker context create aci acicontext
+
