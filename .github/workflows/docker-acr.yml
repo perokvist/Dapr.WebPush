@@ -23,3 +23,14 @@ jobs:
         - run: |
             docker build -f "./src/csharppush/Dockerfile" -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }} .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
+            
+        - name: 'Context and compose'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            docker context create aci acicontext 
+            docker context use acicontext
+            docker context ls
