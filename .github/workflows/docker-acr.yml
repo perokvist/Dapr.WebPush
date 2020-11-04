@@ -43,7 +43,8 @@ jobs:
             
         - name: "Compose"
           run: docker compose up -c acicontext
-          env: 
+          env:
+            IMAGE_NAME: 'daprpush:${{ github.sha }}'
             DOCKER_REGISTRY: '${{ secrets.REGISTRY_LOGIN_SERVER }}'
 
  
