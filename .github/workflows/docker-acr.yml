@@ -24,7 +24,7 @@ jobs:
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
           env: 
-            IMAGE_NAME: daprpush:${{ github.sha }}
+            IMAGE_NAME: 'daprpush:${{ github.sha }}'
         - run: |
             docker build -f "./src/csharppush/Dockerfile" -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME
