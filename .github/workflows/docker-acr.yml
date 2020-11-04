@@ -40,7 +40,9 @@ jobs:
             AZURE_SUBSCRIPTION_ID: '${{ secrets.AZURE_SUBSCRIPTION_ID }}'
             
         - name: "Compose"
-          run: docker compose up -c acicontext          
+          run: docker compose up -c acicontext
+          env: 
+            DOCKER_REGISTRY: '${{ secrets.REGISTRY_LOGIN_SERVER }}     
 
  
 
