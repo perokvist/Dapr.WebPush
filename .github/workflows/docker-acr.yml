@@ -17,21 +17,21 @@ jobs:
           with:
             creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-        - name: 'Build and push image'
+        - name: 'Login Regestry'
           uses: azure/docker-login@v1
           with:
             login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
                       
-        - name: 'Push'
+        - name: 'Push Image to Registry'
           env: 
             IMAGE_NAME: 'daprpush:${{ github.sha }}'
           run: |
             docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" .
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME
            
-        - name: "login azure"
+        - name: "login docker azure"
           run: "docker login azure --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_SECRET --tenant-id $AZURE_TENANT_ID"
           env:
             AZURE_TENANT_ID: '${{ secrets.AZURE_TENANT_ID }}'
@@ -43,7 +43,7 @@ jobs:
           env:
             AZURE_SUBSCRIPTION_ID: '${{ secrets.AZURE_SUBSCRIPTION_ID }}'
             
-        - name: "Compose"
+        - name: "Compose Up"
           run: docker compose up -c acicontext
           env:
             IMAGE_NAME: 'daprpush:${{ github.sha }}'
