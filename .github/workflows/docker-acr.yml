@@ -23,11 +23,20 @@ jobs:
             login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
             username: ${{ secrets.REGISTRY_USERNAME }}
             password: ${{ secrets.REGISTRY_PASSWORD }}
+                      
+        - name: 'Push'
           env: 
             IMAGE_NAME: 'daprpush:${{ github.sha }}'
-        - run: |
-            docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}" .
+          run: |
+            docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush:${{ github.sha }}
+           
+        - name: "login azure"
+          run: "docker login azure --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_SECRET --tenant-id $AZURE_TENANT_ID"
+          env:
+            AZURE_TENANT_ID: '${{ secrets.AZURE_TENANT_ID }}'
+            AZURE_CLIENT_ID: '${{ secrets.REGISTRY_USERNAME }}'
+            AZURE_CLIENT_SECRET: '${{ secrets.REGISTRY_PASSWORD }}'
            
         - name: "Create an aci context"
           run: 'docker context create aci --subscription-id $AZURE_SUBSCRIPTION_ID --resource-group ${{ secrets.RESOURCE_GROUP }} acicontext'
