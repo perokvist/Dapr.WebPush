@@ -1,0 +1,27 @@
+version: '3.4'
+
+services:
+  push:
+    image: ${DOCKER_REGISTRY-}push
+    build:
+      context: .
+      dockerfile: src/csharppush/Dockerfile
+  dapr:
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+     "-app-id", "compose",
+     "-app-port", "80",
+     "-placement-host-address", "placement:50006",
+     "-dapr-grpc-port", "50002",
+     "-components-path", "/components"]
+    volumes:
+        - mydata:/components
+    depends_on:
+      - push
+    network_mode: "service:push"
+volumes:
+  mydata:
+    driver: azure_file
+    driver_opts:
+      share_name: pushdapr
+      storage_account_name: staticdapr
