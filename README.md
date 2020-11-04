@@ -1,5 +1,7 @@
 # Dapr.WebPush
 
+![Azure Container Instance Deployment](https://github.com/perokvist/Dapr.WebPush/workflows/Linux_Container_Workflow/badge.svg)
+
 ### Flow
 
 - Recieve "product" updates (pub/sub or input binding)
