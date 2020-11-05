@@ -21,7 +21,8 @@ services:
     network_mode: "service:push"
   otel:
     image: otel/opentelemetry-collector-contrib-dev:latest
-    ports : 55678
+    ports: 
+      - 55678
     command: ["./otelcontribcol",
      "--config=/conf/otel-collector-config.yaml"]
     volumes:
