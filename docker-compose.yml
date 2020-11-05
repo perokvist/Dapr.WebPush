@@ -19,6 +19,14 @@ services:
     depends_on:
       - push
     network_mode: "service:push"
+  otel:
+    image: otel/opentelemetry-collector-contrib-dev:latest
+    ports : 55678
+    command: ["./otelcontribcol",
+     "--config=/conf/otel-collector-config.yaml"]
+    volumes:
+      - mydata:/conf
+    network_mode: "service:push"
 volumes:
   mydata:
     driver: azure_file
