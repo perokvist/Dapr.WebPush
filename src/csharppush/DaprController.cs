@@ -12,16 +12,31 @@ namespace push
     {
         [Topic("azurepubsub", "in")]
         [HttpPost("in")]
-        public Task InboxAsync([FromBody] ProductInfo productInfo, [FromServices] DaprClient daprClient)
-            => daprClient.InvokeBindingAsync(
-               "azurestorage",
-               "create",
-               Template(productInfo),
-                  metadata: new Dictionary<string, string>
-                  {
-                    { "blobName", $"product-{productInfo.Id}.html" },
-                    { "ContentType", "text/html" }
-                  });
+        public async Task InboxAsync(
+            [FromBody] ProductInfo productInfo,
+            [FromServices] DaprClient daprClient,
+            ILogger<DaprController> logger)
+        {
+            try
+            {
+                await daprClient.InvokeBindingAsync(
+                        "azurestorage",
+                        "create",
+                        Template(productInfo),
+                           metadata: new Dictionary<string, string>
+                           {
+                                { "blobName", $"product-{productInfo.Id}.html" },
+                                { "ContentType", "text/html" }
+                           });
+            }
+            catch (System.Exception ex)
+            {
+                logger.LogInformation("Error updating product {productId}-{productTitle}", productInfo.Id, productInfo.Title);
+                logger.LogError(ex, "Error updating product {productId}-{productTitle}", productInfo.Id, productInfo.Title);
+                throw;
+            }
+
+        }
 
         public static string Template(ProductInfo info)
             => $"<html><body><h1>{info.Title}</h1><div>{info.Price}</div></body></html>";
