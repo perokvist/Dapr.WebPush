@@ -10,6 +10,32 @@
  {"id":"69136027-cb55-47cd-9b32-cdf27b3059f8","source":"push","type":"com.dapr.event.sent","specversion":"1.0","datacontenttype":"application/json","data":{"Title":"Fancy Table","Price":2500,"Id":4},"subject":"00-2c3a831ad26182bf444b131b84945393-792c2bb284a9f319-01","topic":"in","pubsubname":"azurepubsub"}
 ```
 
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: native
+  namespace: default
+spec:
+  type: exporters.native
+  metadata:
+  - name: enabled
+    value: "true"
+  - name: agentEndpoint
+    value: "0.0.0.0:55678"
+```
+
+```yaml
+apiVersion: dapr.io/v1alpha1
+kind: Configuration
+metadata:
+  name: appconfig
+  namespace: default
+spec:
+  tracing:
+    samplingRate: "1"
+```
+
 ### Flow
 
 - Recieve "product" updates (pub/sub or input binding)

@@ -15,7 +15,7 @@ namespace push
         public async Task InboxAsync(
             [FromBody] ProductInfo productInfo,
             [FromServices] DaprClient daprClient,
-            ILogger<DaprController> logger)
+            [FromServices] ILogger<DaprController> logger)
         {
             try
             {
