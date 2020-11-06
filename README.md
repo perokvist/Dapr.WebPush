@@ -2,6 +2,8 @@
 
 ![Azure Container Instance Deployment](https://github.com/perokvist/Dapr.WebPush/workflows/Linux_Container_Workflow/badge.svg)
 
+### Product Data
+
 ```powershell
  dapr publish --pubsub azurepubsub -t in -d '{\"Title\": \"Fancy Table\", \"Price\": 2500, \"Id\": 4}'
 ```
@@ -43,6 +45,31 @@ spec:
     samplingRate: "1"
 ```
 
+#### Open Telemetry
+
+
+```yaml
+receivers:
+  opencensus:
+      endpoint: 0.0.0.0:55678
+exporters:
+  azuremonitor:
+  azuremonitor/2:
+    endpoint: "https://dc.services.visualstudio.com/v2/track"
+    instrumentation_key: "<KEY>"
+    maxbatchsize: 100
+    maxbatchinterval: 10s
+service:
+  pipelines:
+    traces:
+      receivers: [opencensus]
+      exporters: [azuremonitor/2]
+```
+
+
+
+
+
 ### Flow
 
 - Recieve "product" updates (pub/sub or input binding)
@@ -61,7 +88,6 @@ spec:
 - Using a Azure File share for component config
 
 #### TODO
-- Application Insights
 - Key vault secrets
 
 ### Resources

@@ -18,7 +18,9 @@ namespace src
                     webBuilder.ConfigureServices(services =>
                         services
                     //.Configure<KestrelServerOptions>(opt => opt.AllowSynchronousIO = true)
-                            .AddLogging()
+                            .AddLogging(c => 
+                                c.AddConsole()
+                                .SetMinimumLevel(LogLevel.Debug))
                             .AddControllers()
                             .AddDapr()
                     )
