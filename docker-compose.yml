@@ -13,9 +13,10 @@ services:
      "-app-port", "80",
      "-placement-host-address", "placement:50006",
      "-dapr-grpc-port", "50002",
-     "-components-path", "/components"]
+     "-config", "/mount/config/collector_config.yaml"
+     "-components-path", "/mount/components"]
     volumes:
-        - mydata:/components
+        - mydata:/mount
     depends_on:
       - push
     network_mode: "service:push"
@@ -24,9 +25,9 @@ services:
     ports: 
       - 55678
     command: ["./otelcontribcol",
-     "--config=/conf/otel-collector-config.yaml"]
+     "--config=/mount/config/otel-collector-config.yaml"]
     volumes:
-      - mydata:/conf
+      - mydata:/mount
     network_mode: "service:push"
 volumes:
   mydata:
