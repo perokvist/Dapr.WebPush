@@ -6,9 +6,12 @@
  dapr publish --pubsub azurepubsub -t in -d '{\"Title\": \"Fancy Table\", \"Price\": 2500, \"Id\": 4}'
 ```
 
+
 ```json
  {"id":"69136027-cb55-47cd-9b32-cdf27b3059f8","source":"push","type":"com.dapr.event.sent","specversion":"1.0","datacontenttype":"application/json","data":{"Title":"Fancy Table","Price":2500,"Id":4},"subject":"00-2c3a831ad26182bf444b131b84945393-792c2bb284a9f319-01","topic":"in","pubsubname":"azurepubsub"}
 ```
+
+### Application insights
 
 ```yaml
 apiVersion: dapr.io/v1alpha1
@@ -23,6 +26,10 @@ spec:
     value: "true"
   - name: agentEndpoint
     value: "0.0.0.0:55678"
+```
+
+```bash
+dapr run {.....} --config config/otel.config 
 ```
 
 ```yaml
