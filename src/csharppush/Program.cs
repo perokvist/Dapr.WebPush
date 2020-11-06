@@ -19,7 +19,7 @@ namespace src
                         services
                             .AddApplicationInsightsTelemetry()
                             .AddLogging(c => 
-                                c.AddConsole()
+                                c.AddApplicationInsights()
                                 .SetMinimumLevel(LogLevel.Information))
                             .AddControllers()
                             .AddDapr()
