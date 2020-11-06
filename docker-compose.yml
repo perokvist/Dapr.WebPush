@@ -4,6 +4,8 @@ services:
   push:
     image: ${DOCKER_REGISTRY}/${IMAGE_NAME}
     build:
+      environment:
+        - APPINSIGHTS_INSTRUMENTATIONKEY=${DOCKER_REGISTRY}
       context: .
       dockerfile: src/csharppush/Dockerfile
   dapr:

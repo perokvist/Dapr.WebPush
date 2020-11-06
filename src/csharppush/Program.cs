@@ -17,7 +17,7 @@ namespace src
                 .ConfigureWebHostDefaults(webBuilder =>
                     webBuilder.ConfigureServices(services =>
                         services
-                    //.Configure<KestrelServerOptions>(opt => opt.AllowSynchronousIO = true)
+                            .AddApplicationInsightsTelemetry()
                             .AddLogging(c => 
                                 c.AddConsole()
                                 .SetMinimumLevel(LogLevel.Information))
