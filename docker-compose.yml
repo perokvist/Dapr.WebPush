@@ -13,7 +13,7 @@ services:
      "-app-port", "80",
      "-placement-host-address", "placement:50006",
      "-dapr-grpc-port", "50002",
-     "-config", "/mount/config/collector_config.yaml"
+     "-config", "/mount/config/collector_config.yaml",
      "-components-path", "/mount/components"]
     volumes:
         - mydata:/mount
