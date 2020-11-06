@@ -20,7 +20,7 @@ namespace src
                     //.Configure<KestrelServerOptions>(opt => opt.AllowSynchronousIO = true)
                             .AddLogging(c => 
                                 c.AddConsole()
-                                .SetMinimumLevel(LogLevel.Debug))
+                                .SetMinimumLevel(LogLevel.Information))
                             .AddControllers()
                             .AddDapr()
                     )
