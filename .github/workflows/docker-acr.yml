@@ -48,7 +48,8 @@ jobs:
           env:
             IMAGE_NAME: 'daprpush:${{ github.sha }}'
             DOCKER_REGISTRY: '${{ secrets.REGISTRY_LOGIN_SERVER }}'
-	    APPINSIGHTS_INSTRUMENTATIONKEY: '${{ secrets.APPINSIGHTS_INSTRUMENTATIONKEY }}'
+            APPINSIGHTS_INSTRUMENTATIONKEY: '${{ secrets.APPINSIGHTS_INSTRUMENTATIONKEY }}'
+	    
 
  
 
