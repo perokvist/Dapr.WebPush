@@ -38,8 +38,31 @@ namespace push
 
         }
 
-        public static string Template(ProductInfo info)
-            => $"<html><body><h1>{info.Title}</h1><div>{info.Price}</div></body></html>";
+        public static string Template(ProductInfo info) =>
+@$"<!DOCTYPE html>
+<html lang=""en"">
+<head>
+  <meta charset = ""UTF-8"" >
+  < meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+  <title>Product</title>
+  <link rel = ""stylesheet"" href=""product.css"" />
+</head>
+<body>
+  
+  <section id = ""product-page"" class=""product-wrapper"" itemscope="""" itemtype=""http://schema.org/Product"" data-ref-page=""productpage"">
+    <div class=""product"">
+      <img src = ""monitor.png"" class=""product-image""/>
+      <div class=""product-info"">
+        <h2 class=""title"">
+          {info.Title}
+        </h2>
+        <div class=""price"">{info.Price}</div>
+        <button class=""buy-btn"">BUY</button>
+      </div>
+    </div>
+  </section>
+</body>
+</html>";
     }
 
     public class ProductInfo
