@@ -13,8 +13,6 @@ services:
     command: ["./daprd",
      "-app-id", "compose",
      "-app-port", "80",
-     "-placement-host-address", "placement:50006",
-     "-dapr-grpc-port", "50002",
      "-config", "/mount/config/collector_config.yaml",
      "-components-path", "/mount/components"]
     volumes:
@@ -24,8 +22,6 @@ services:
     network_mode: "service:push"
   otel:
     image: otel/opentelemetry-collector-contrib-dev:latest
-    ports: 
-      - 55678
     command: ["./otelcontribcol",
      "--config=/mount/config/otel-collector-config.yaml"]
     volumes:
