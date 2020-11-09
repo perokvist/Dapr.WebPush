@@ -10,7 +10,7 @@ This is a demo of a flow pushing a product web page/fragment to a static site, w
 
 - Recieve "product" updates (pub/sub or input binding)
 - Execute templating
-- Push to static web (output bindign)
+- Push to static web (output binding)
 
 #### TODO
 - Cache state
@@ -86,6 +86,8 @@ service:
 - Push it to a Azure Conatiner Registry
 - Deploy it with Dapr through docker compose to ACI
 - Using a Azure File share for component config
+
+![Context to context communication](assets/webpush_compose.png)
 
 #### TODO
 - Key vault secrets
