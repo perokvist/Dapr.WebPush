@@ -16,6 +16,62 @@ This is a demo of a flow pushing a product web page/fragment to a static site, w
 - Cache state
 - Push all on changed template
 
+
+## Guide
+
+To recreate this project follow this steps with the corresponing files and snippets as guide.
+
+### Azure
+
+Following services are needed.
+
+- Container instances
+- Container registry
+- Service Bus
+- Storage (file share + static web)
+- Application insights
+
+### Docker and Compose
+
+Files for full details;
+
+- [docker file](blob/main/src/csharppush/Dockerfile)
+- [compose file](/blob/main/docker-compose.yml)
+
+Dapr components used;
+
+- [Pub/Sub Azure Service Bus](https://docs.dapr.io/operations/components/setup-pubsub/supported-pubsub/setup-azure-servicebus/)
+- [Output binding for Azure Blob Storage](https://docs.dapr.io/operations/components/setup-bindings/supported-bindings/blobstorage/)
+
+Steps;
+
+- Create an app with a [docker file](blob/main/src/csharppush/Dockerfile).
+- Add a [compose file](/blob/main/docker-compose.yml) to your solution
+- Add daprd to compose
+- Add the shared volume to the compose file
+- Upload the dapr components and config file to the file share (components folder)
+- Set the starting command for daprd to correspond with the file share
+- Add the telemetry collector to compose
+- Create a folder and upload configuration for "otel" collector
+- Configure volume in compose for the collector
+
+### Github Action
+
+Follow along with the [workflow file](/blob/main/.github/workflows/docker-acr.yml).
+
+This workflow utilize secrets outlined in [resources](#resources)
+
+- Checkout
+- Install compose CLI
+- Login to Azure
+- Login to Container Registry
+- Build container
+- Push container to Registry
+- Login docker to Azure for context
+- Create an ACI context
+- Use Compose to push group to ACI
+
+
 ### Product Data
 
 ```powershell
