@@ -1,6 +1,6 @@
 # Dapr.WebPush
 
-![Azure Container Instance Deployment](https://github.com/perokvist/Dapr.WebPush/workflows/Linux_Container_Workflow/badge.svg)
+<! -- ![Azure Container Instance Deployment](https://github.com/perokvist/Dapr.WebPush/workflows/Linux_Container_Workflow/badge.svg) -->
 
 This is a demo of a flow pushing a product web page/fragment to a static site, when product information changes, using dapr pub/sub and bindings.
 
@@ -8,7 +8,7 @@ This is a demo of a flow pushing a product web page/fragment to a static site, w
 
 ![Context to context communication](assets/webpush_flow.png)
 
-- Recieve "product" updates (pub/sub or input binding)
+- Receive "product" updates (pub/sub or input binding)
 - Execute templating
 - Push to static web (output binding)
 
@@ -19,7 +19,7 @@ This is a demo of a flow pushing a product web page/fragment to a static site, w
 
 ## Guide
 
-To recreate this project follow this steps with the corresponing files and snippets as guide.
+To recreate this project, follow this steps with the corresponding files and snippets as guide.
 
 ### Azure
 
@@ -45,8 +45,8 @@ Dapr components used;
 
 Steps;
 
-- Create an app with a [docker file](blob/main/src/csharppush/Dockerfile).
-- Add a [compose file](/blob/main/docker-compose.yml) to your solution
+- Create an app with a [docker file](./src/csharppush/Dockerfile).
+- Add a [compose file](./docker-compose.yml) to your solution
 - Add daprd to compose
 - Add the shared volume to the compose file
 - Upload the dapr components and config file to the file share (components folder)
@@ -57,7 +57,7 @@ Steps;
 
 ### Github Action
 
-Follow along with the [workflow file](/blob/main/.github/workflows/docker-acr.yml).
+Follow along with the [workflow file](./workflows/docker-acr.yml).
 
 This workflow utilize secrets outlined in [resources](#resources)
 
