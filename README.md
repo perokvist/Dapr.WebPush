@@ -35,8 +35,8 @@ Following services are needed.
 
 Files for full details;
 
-- [docker file](blob/main/src/csharppush/Dockerfile)
-- [compose file](/blob/main/docker-compose.yml)
+- [docker file](./src/csharppush/Dockerfile)
+- [compose file](./docker-compose.yml)
 
 Dapr components used;
 
