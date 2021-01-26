@@ -29,7 +29,7 @@ jobs:
             IMAGE_NAME: 'daprpush:v${{ github.run_number }}'
           run: |
             docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" -t latest .
-            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME -a
+            docker push -a ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME
            
         - name: "login docker azure"
           run: "docker login azure --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_SECRET --tenant-id $AZURE_TENANT_ID"
