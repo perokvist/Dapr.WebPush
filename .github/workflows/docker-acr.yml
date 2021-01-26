@@ -30,7 +30,7 @@ jobs:
           run: |
             echo ${{env.IMAGE_NAME}}
             docker build -f "./src/csharppush/Dockerfile" -t '${{env.IMAGE_NAME}}:v${{ github.run_number }}' -t '${{env.IMAGE_NAME}}:latest' .
-            docker image push $IMAGE_NAME --all-tags
+            docker push $IMAGE_NAME
            
         - name: "login docker azure"
           run: "docker login azure --client-id $AZURE_CLIENT_ID --client-secret $AZURE_CLIENT_SECRET --tenant-id $AZURE_TENANT_ID"
