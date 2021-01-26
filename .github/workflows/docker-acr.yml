@@ -29,7 +29,7 @@ jobs:
             IMAGE_NAME: '${{ secrets.REGISTRY_LOGIN_SERVER }}/daprpush'
           run: |
             echo $IMAGE_NAME
-            docker build -f "./src/csharppush/Dockerfile" -t "${{ $IMAGE_NAME }}:v${{ github.run_number }}" -t "${{ $IMAGE_NAME }}:latest" .
+            docker build -f "./src/csharppush/Dockerfile" -t '$IMAGE_NAME:v${{ github.run_number }}" -t '$IMAGE_NAME:latest' .
             docker image push $IMAGE_NAME --all-tags
            
         - name: "login docker azure"
