@@ -29,7 +29,7 @@ jobs:
             IMAGE_NAME: 'daprpush:v${{ github.ref }}'
           run: |
             docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" .
-            docker tag perokvist/daprpush:latest
+            docker tag daprpush:latest
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME
            
         - name: "login docker azure"
