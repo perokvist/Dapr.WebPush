@@ -26,7 +26,7 @@ jobs:
                       
         - name: 'Push Image to Registry'
           env: 
-            IMAGE_NAME: 'daprpush:v${{ github.ref }}'
+            IMAGE_NAME: 'daprpush:${{ github.ref }}'
           run: |
             docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" .
             docker tag daprpush:latest
