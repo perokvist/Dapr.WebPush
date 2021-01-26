@@ -26,9 +26,9 @@ jobs:
                       
         - name: 'Push Image to Registry'
           env: 
-            IMAGE_NAME: 'daprpush:v${{ github.run_id }}'
+            IMAGE_NAME: 'daprpush:v${{ github.run_number }}'
           run: |
-            docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" .
+            docker build -f "./src/csharppush/Dockerfile" -t "${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME" -t latest .
             docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME
            
         - name: "login docker azure"
